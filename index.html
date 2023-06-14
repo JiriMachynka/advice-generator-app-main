@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    
+    <title>Frontend Mentor | Advice generator app | Created with 💖 by Jiří Machynka</title>
+    <meta name="description" content="Frontend Mentor | Simple advice generator app created with 💖 by Jiří Machynka"
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      :root {
+        --primary-color: hsl(193, 38%, 86%);
+        --secondary-color: hsl(150, 100%, 66%);
+        
+        --light-grayish-blue: hsl(217, 19%, 38%);
+        --dark-grayish-blue: hsl(217, 19%, 24%);
+        --dark-blue: hsl(218, 23%, 16%);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-weight: 800;
+        font-family: 'Manrope', sans-serif;
+      }
+
+      body {
+        background-color: var(--dark-blue);
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .advice-card {
+        padding: 30px;
+        color: #d1e6ed;
+        max-width: 500px;
+        background-color: var(--dark-grayish-blue);
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        position: relative;
+      }
+
+      .advice-card-title {
+        text-align: center;
+        font-size: 14px;
+        color: var(--secondary-color);
+        text-transform: uppercase;
+      }
+
+      #advice {
+        font-size: 28px;
+        text-align: center;
+      }
+
+      .divider-wrapper-desktop {
+        margin: 0px auto 30px auto;
+      }
+
+      .divider-wrapper-mobile {
+        margin: 0px auto 30px auto;
+        display: none;
+      }
+
+      #dice-wrapper {
+        background-color: #51fea9;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        outline: var(--dark-grayish-blue) solid 2px;
+        padding: 15px;
+        align-self: center;
+        position: absolute;
+        bottom: -30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #dice-wrapper:hover {
+        cursor: pointer;
+        box-shadow: 0px 0px 20px 0px var(--secondary-color);
+      }
+
+      #dice-wrapper svg {
+        fill: var(--secondary-color);
+      }
+
+      @media (max-width: 375px) {
+        .advice-card {
+          margin: 0px 10px;
+          padding: 10px;
+        }
+
+        #advice {
+          font-size: 20px;
+        }
+
+        .divider-wrapper-desktop {
+          display: none;
+        }
+
+        .divider-wrapper-mobile {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 40px;
+        }
+      }
+
+      .attribution { 
+        font-size: 20px; 
+        text-align: center; 
+        margin-top: 60px;
+        display: flex;
+        flex-direction: column;
+      }
+      .attribution a { 
+        color: hsl(228, 45%, 44%); 
+      }
+    </style>
+  </head>
+  <body>
+    <div class="advice-card">
+      <h2 class="advice-card-title">Advice #<span id="advice-id"></span></h2>
+      <p id="advice"></p>
+      
+      <div class="divider-wrapper-desktop">
+        <svg width="444" height="16" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" fill-rule="evenodd">
+            <path fill="#4F5D74" d="M0 8h196v1H0zM240 6h196v1H240z"/>
+            <g transform="translate(210)" fill="#CEE3E9"><rect width="6" height="16" rx="3"/><rect x="14" width="6" height="16" rx="3"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="divider-wrapper-mobile">
+        <svg width="295" height="16" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" fill-rule="evenodd"><path fill="#4F5D74" d="M0 8h122v1H0zM173 8h122v1H173z"/>
+            <g transform="translate(138)" fill="#CEE3E9"><rect width="6" height="16" rx="3"/><rect x="14" width="6" height="16" rx="3"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <button id="dice-wrapper" onclick="getAdvice()">
+        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 0H4a4.005 4.005 0 0 0-4 4v16a4.005 4.005 0 0 0 4 4h16a4.005 4.005 0 0 0 4-4V4a4.005 4.005 0 0 0-4-4ZM7.5 18a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm0-9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm0-9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" fill="#202733"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="attribution">
+      <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a></p>
+      <p>Coded by <a href="https://www.github.com/JiriMachynka">Jiří Machynka</a></p>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
